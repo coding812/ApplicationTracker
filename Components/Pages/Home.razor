@@ -1,5 +1,52 @@
 ﻿@page "/"
+@using ApplicationsHelper
+@inject NavigationManager Navigation
+@inject DatabaseHelper DatabaseHelper
+
 
 <h1>Enter Applications Here</h1>
 
-Welcome to your new app.
+
+<EditForm Model="@newApplication" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="companyName">Company Name:</label>
+        <InputText id="companyName" @bind-Value="newApplication.CompanyName" />
+    </div>
+    <div>
+        <label for="contactName">Contact Name:</label>
+        <InputText id="contactName" @bind-Value="newApplication.ContactName" />
+    </div>
+    <div>
+        <label for="dateApplied">Date Applied:</label>
+        <InputDate id="dateApplied" @bind-Value="newApplication.DateApplied" />
+    </div>
+    <div>
+        <label for="followUp">Follow Up:</label>
+        <InputDate id="followUp" @bind-Value="newApplication.FollowUp" />
+    </div>
+    <div>
+        <label for="phoneNumber">Phone Number:</label>
+        <InputText id="phoneNumber" @bind-Value="newApplication.PhoneNumber" />
+    </div>
+    <div>
+        <label for="disposition">Disposition:</label>
+        <InputText id="disposition" @bind-Value="newApplication.Disposition" />
+    </div>
+    <div>
+        <label for="notes">Notes:</label>
+        <InputTextArea id="notes" @bind-Value="newApplication.Notes" />
+    </div>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    private Applications newApplication = new Applications();
+    private void HandleValidSubmit()
+    {
+        DatabaseHelper.AddApplication(newApplication);
+        Navigation.NavigateTo("/");
+    }
+}

@@ -2,3 +2,43 @@
 
 <h1>Previous Applications</h1>
 
+@page "/previousapplications"
+@using ApplicationsHelper
+@inject DatabaseHelper DatabaseHelper
+
+<h1>Previous Applications</h1>
+
+@if (applications == null)
+{
+    <p>Loading...</p>
+}
+else if (!applications.Any())
+{
+    <p>No applications found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var application in applications)
+        {
+            <li>
+                <strong>Company Name:</strong> @application.CompanyName<br />
+                <strong>Contact Name:</strong> @application.ContactName<br />
+                <strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")<br />
+                <strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")<br />
+                <strong>Phone Number:</strong> @application.PhoneNumber<br />
+                <strong>Disposition:</strong> @application.Disposition<br />
+                <strong>Notes:</strong> @application.Notes<br />
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<Applications> applications;
+
+    protected override void OnInitialized()
+    {
+        applications = DatabaseHelper.GetAllApplications();
+    }
+}

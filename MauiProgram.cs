@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using ApplicationsHelper;
 namespace ApplicationTracker;
 
 public static class MauiProgram
@@ -15,6 +15,8 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddMauiBlazorWebView();
+		 string dbPath = Path.Combine(FileSystem.AppDataDirectory, "applications.db");
+        builder.Services.AddSingleton<DatabaseHelper>(sp => new DatabaseHelper(dbPath));
 
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
