@@ -1,10 +1,8 @@
-@page "/previousapplications"
-
-<h1>Previous Applications</h1>
 
 @page "/previousapplications"
 @using ApplicationsHelper
 @inject DatabaseHelper DatabaseHelper
+
 
 <h1>Previous Applications</h1>
 
@@ -35,7 +33,7 @@ else
 }
 
 @code {
-    private List<Applications> applications;
+    private List<Applications>? applications;
 
     protected override void OnInitialized()
     {

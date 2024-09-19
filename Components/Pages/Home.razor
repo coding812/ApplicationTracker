@@ -7,39 +7,41 @@
 <h1>Enter Applications Here</h1>
 
 
-<EditForm Model="@newApplication" OnValidSubmit="HandleValidSubmit">
+<EditForm   Model="@newApplication" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div>
-        <label for="companyName">Company Name:</label>
-        <InputText id="companyName" @bind-Value="newApplication.CompanyName" />
+    <div class="d-flex justify-content-start">
+        <label for="companyName" class="fixed-width-label">Company Name:</label>
+        <InputText class="ms-4" id="companyName" @bind-Value="newApplication.CompanyName" />
     </div>
-    <div>
-        <label for="contactName">Contact Name:</label>
-        <InputText id="contactName" @bind-Value="newApplication.ContactName" />
+    <div class="d-flex justify-content-start">
+        <label for="contactName" class="fixed-width-label">Contact Name:</label>
+        <InputText class="ms-4" id="contactName" @bind-Value="newApplication.ContactName" />
     </div>
-    <div>
+    <div class="d-flex justify-content-start">
         <label for="dateApplied">Date Applied:</label>
         <InputDate id="dateApplied" @bind-Value="newApplication.DateApplied" />
-    </div>
-    <div>
+    </div >
+    <div class="d-flex justify-content-start">
         <label for="followUp">Follow Up:</label>
         <InputDate id="followUp" @bind-Value="newApplication.FollowUp" />
     </div>
-    <div>
+    <div class="d-flex justify-content-start">
         <label for="phoneNumber">Phone Number:</label>
         <InputText id="phoneNumber" @bind-Value="newApplication.PhoneNumber" />
     </div>
-    <div>
+    <div class="d-flex justify-content-start">
         <label for="disposition">Disposition:</label>
         <InputText id="disposition" @bind-Value="newApplication.Disposition" />
     </div>
-    <div>
+    <div class="d-flex justify-content-start">
         <label for="notes">Notes:</label>
         <InputTextArea id="notes" @bind-Value="newApplication.Notes" />
     </div>
-    <button type="submit">Submit</button>
+    <div class="d-flex justify-content-center">
+        <button type="submit">Submit</button>
+    </div>
 </EditForm>
 
 @code {

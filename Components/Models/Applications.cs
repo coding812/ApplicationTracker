@@ -24,7 +24,10 @@ public class DatabaseHelper
         var directory = Path.GetDirectoryName(dbPath);
         if (!Directory.Exists(directory))
         {
-            Directory.CreateDirectory(directory);
+            if (directory != null)
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         // Create the database file if it doesn't exist
