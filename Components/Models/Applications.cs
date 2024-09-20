@@ -11,7 +11,7 @@ public class Applications
     public DateTime? DateApplied {get; set;}
     public DateTime? FollowUp {get; set;}
     public string? PhoneNumber {get; set;}
-    public string? Disposition {get; set;}
+    public string? Status {get; set;}
     public string? Notes {get; set;}
 
 }

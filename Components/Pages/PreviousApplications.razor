@@ -25,7 +25,7 @@ else
                 <strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")<br />
                 <strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")<br />
                 <strong>Phone Number:</strong> @application.PhoneNumber<br />
-                <strong>Disposition:</strong> @application.Disposition<br />
+                <strong>Status:</strong> @application.Status<br />
                 <strong>Notes:</strong> @application.Notes<br />
             </li>
         }

@@ -4,43 +4,46 @@
 @inject DatabaseHelper DatabaseHelper
 
 
-<h1>Enter Applications Here</h1>
+<h3>Enter Applications Here</h3>
 
 
 <EditForm   Model="@newApplication" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <div class="d-flex justify-content-start">
-        <label for="companyName" class="fixed-width-label">Company Name:</label>
-        <InputText class="ms-4" id="companyName" @bind-Value="newApplication.CompanyName" />
+    <div class="d-flex row">
+        <div class="col mb-3">
+            <label for="companyName" class="form-label">Company Name</label>
+            <InputText class="form-control" id="companyName" @bind-Value="newApplication.CompanyName"  />
+        </div> 
+        <div class="col mb-3">
+            <label for="contactName" class="form-label">Contact Name</label>
+            <InputText class="form-control" id="contactName" @bind-Value="newApplication.ContactName"  />
+        </div>
     </div>
-    <div class="d-flex justify-content-start">
-        <label for="contactName" class="fixed-width-label">Contact Name:</label>
-        <InputText class="ms-4" id="contactName" @bind-Value="newApplication.ContactName" />
+    <div class="d-flex row">
+        <div class="col mb-3">
+            <label for="dateApplied" class="form-label">Date Applied</label>
+            <InputDate class="form-control"  id="dateApplied" @bind-Value="newApplication.DateApplied"  />
+        </div>
+        <div class="col mb-3">
+            <label for="followUp" class="form-label">Follow Up Date</label>
+            <InputDate class="form-control"  id="followUp" @bind-Value="newApplication.FollowUp"  />
+        </div>
     </div>
-    <div class="d-flex justify-content-start">
-        <label for="dateApplied">Date Applied:</label>
-        <InputDate id="dateApplied" @bind-Value="newApplication.DateApplied" />
-    </div >
-    <div class="d-flex justify-content-start">
-        <label for="followUp">Follow Up:</label>
-        <InputDate id="followUp" @bind-Value="newApplication.FollowUp" />
-    </div>
-    <div class="d-flex justify-content-start">
+    <div class="mb-3">
         <label for="phoneNumber">Phone Number:</label>
-        <InputText id="phoneNumber" @bind-Value="newApplication.PhoneNumber" />
+        <InputText class="form-control" id="phoneNumber" @bind-Value="newApplication.PhoneNumber" />
     </div>
-    <div class="d-flex justify-content-start">
-        <label for="disposition">Disposition:</label>
-        <InputText id="disposition" @bind-Value="newApplication.Disposition" />
+    <div class="mb-3">
+        <label for="status">Status:</label>
+        <InputText class="form-control" id="status" @bind-Value="newApplication.Status" />
     </div>
-    <div class="d-flex justify-content-start">
+    <div class="mb-3">
         <label for="notes">Notes:</label>
-        <InputTextArea id="notes" @bind-Value="newApplication.Notes" />
+        <InputTextArea class="form-control" id="notes" @bind-Value="newApplication.Notes" />
     </div>
-    <div class="d-flex justify-content-center">
-        <button type="submit">Submit</button>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary me-1" type="submit">Submit</button>
     </div>
 </EditForm>
 
