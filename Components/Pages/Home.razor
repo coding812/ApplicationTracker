@@ -52,6 +52,8 @@
     private void HandleValidSubmit()
     {
         DatabaseHelper.AddApplication(newApplication);
+        newApplication = new Applications();
         Navigation.NavigateTo("/");
+        
     }
 }
