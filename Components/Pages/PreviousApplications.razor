@@ -3,8 +3,7 @@
 @using ApplicationsHelper
 @inject DatabaseHelper DatabaseHelper
 
-
-<h1>Previous Applications</h1>
+<h1 class="mb-4">Previous Applications</h1>
 
 @if (applications == null)
 {
@@ -16,18 +15,24 @@ else if (!applications.Any())
 }
 else
 {
+    
+    <hr class="border border-primary border-5 border rounded-pill w-50 opacity-75 mx-auto">
     <ul>
         @foreach (var application in applications)
         {
             <li>
-                <strong>Company Name:</strong> @application.CompanyName<br />
-                <strong>Contact Name:</strong> @application.ContactName<br />
-                <strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")<br />
-                <strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")<br />
-                <strong>Phone Number:</strong> @application.PhoneNumber<br />
-                <strong>Status:</strong> @application.Status<br />
-                <strong>Notes:</strong> @application.Notes<br />
+                <ul>
+                    <li><strong>Company Name:</strong> @application.CompanyName</li>
+                    <li><strong>Contact Name:</strong> @application.ContactName</li>
+                    <li><strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")</li>
+                    <li><strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")</li>
+                    <li><strong>Phone Number:</strong> @application.PhoneNumber</li>
+                    <li><strong>Status:</strong> @application.Status</li>
+                    <li><strong>Notes:</strong> @application.Notes</li>
+                </ul>
             </li>
+            <hr class="border border-primary border-5 border rounded-pill w-50 opacity-75 mx-auto">
+
         }
     </ul>
 }
