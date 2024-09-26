@@ -1,0 +1,85 @@
+@page "/updateapplicationmodal"
+
+@using ApplicationsHelper
+@inject DatabaseHelper DatabaseHelper
+
+@if (isVisible)
+{
+  <div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Application</h1>
+          <button type="button" class="btn-close" @onclick="Hide" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <EditForm Model="@updatedApplication" OnValidSubmit="HandleValidSubmit">
+              <DataAnnotationsValidator />
+              <ValidationSummary />
+              <div class="d-flex row">
+                  <div class="col mb-3">
+                      <label for="companyName" class="form-label">Company Name</label>
+                      <InputText class="form-control" id="companyName" @bind-Value="updatedApplication.CompanyName" />
+                  </div> 
+                  <div class="col mb-3">
+                      <label for="contactName" class="form-label">Contact Name</label>
+                      <InputText class="form-control" id="contactName" @bind-Value="updatedApplication.ContactName" />
+                  </div>
+              </div>
+              <div class="d-flex row">
+                  <div class="col mb-3">
+                      <label for="dateApplied" class="form-label">Date Applied</label>
+                      <InputDate class="form-control" id="dateApplied" @bind-Value="updatedApplication.DateApplied" />
+                  </div>
+                  <div class="col mb-3">
+                      <label for="followUp" class="form-label">Follow Up Date</label>
+                      <InputDate class="form-control" id="followUp" @bind-Value="updatedApplication.FollowUp" />
+                  </div>
+              </div>
+              <div class="mb-3">
+                  <label for="phoneNumber">Phone Number:</label>
+                  <InputText class="form-control" id="phoneNumber" @bind-Value="updatedApplication.PhoneNumber" />
+              </div>
+              <div class="mb-3">
+                  <label for="status">Status:</label>
+                  <InputText class="form-control" id="status" @bind-Value="updatedApplication.Status" />
+              </div>
+              <div class="mb-3">
+                  <label for="notes">Notes:</label>
+                  <InputTextArea class="form-control" id="notes" @bind-Value="updatedApplication.Notes" />
+              </div>
+              <div class="d-flex justify-content-end">
+                  <button class="btn btn-primary me-1" type="submit">Submit</button>
+              </div>
+          </EditForm>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @onclick="Hide">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+
+@code {
+    private Applications updatedApplication = new Applications();
+    private void HandleValidSubmit()
+    {
+        DatabaseHelper.UpdateApplication(updatedApplication);
+    }
+
+    private bool isVisible;
+    public void Show(Applications application)
+    {
+        this.updatedApplication = application;
+        isVisible = true;
+        StateHasChanged();
+    }
+
+    private void Hide()
+    {
+        isVisible = false;
+        StateHasChanged();
+    }
+}

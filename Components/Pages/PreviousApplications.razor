@@ -1,6 +1,8 @@
-
 @page "/previousapplications"
+
 @using ApplicationsHelper
+@using ApplicationTracker.Components.Shared
+@inject NavigationManager Navigation
 @inject DatabaseHelper DatabaseHelper
 
 <h1 class="mb-4">Previous Applications</h1>
@@ -16,32 +18,58 @@ else if (!applications.Any())
 else
 {
     
-    <hr class="border border-primary border-5 border rounded-pill w-50 opacity-75 mx-auto">
-    <ul>
-        @foreach (var application in applications)
-        {
-            <li>
-                <ul>
-                    <li><strong>Company Name:</strong> @application.CompanyName</li>
-                    <li><strong>Contact Name:</strong> @application.ContactName</li>
-                    <li><strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")</li>
-                    <li><strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")</li>
-                    <li><strong>Phone Number:</strong> @application.PhoneNumber</li>
-                    <li><strong>Status:</strong> @application.Status</li>
-                    <li><strong>Notes:</strong> @application.Notes</li>
-                </ul>
-            </li>
-            <hr class="border border-primary border-5 border rounded-pill w-50 opacity-75 mx-auto">
+    <hr class="border border-primary border-5 border rounded-pill w-75 opacity-75 mx-auto">
 
+    @foreach (var application in applications)
+    {
+        if(application.FollowUp.HasValue && application.FollowUp.Value.Date == DateTime.Now.Date)
+        {
+            <div class="alert alert-warning" role="alert">
+                <strong>Follow up for @application.ContactName is today!</strong>
+            </div>
         }
-    </ul>
+        else if(application.FollowUp.HasValue && application.FollowUp.Value < DateTime.Now.Date)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Follow up with @application.ContactName is over due!</strong>
+            </div>
+        }
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Company Name:</strong> @application.CompanyName</li>
+                <li class="list-group-item"><strong>Contact Name:</strong> @application.ContactName</li>
+                <li class="list-group-item"><strong>Date Applied:</strong> @(application.DateApplied.HasValue ? application.DateApplied.Value.ToShortDateString() : "N/A")</li>
+                <li class="list-group-item"><strong>Follow Up:</strong> @(application.FollowUp.HasValue ? application.FollowUp.Value.ToShortDateString() : "N/A")</li>
+                <li class="list-group-item"><strong>Phone Number:</strong> @application.PhoneNumber</li>
+                <li class="list-group-item"><strong>Status:</strong> @application.Status</li>
+                <li class="list-group-item"><strong>Notes:</strong> @application.Notes</li>
+
+            </ul>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary me-1" @onclick="() => EditApplication(application)" >Edit</button>
+                <button class="btn btn-danger me-1" @onclick="() => DeleteApplication(application)" >Delete</button>
+            </div>
+        <hr class="border border-primary border-5 border rounded-pill w-50 opacity-75 mx-auto">
+
+    }
 }
+
+<EditModal @ref="editModal" />
+
 
 @code {
     private List<Applications>? applications;
-
+    private EditModal editModal;
     protected override void OnInitialized()
     {
+        applications = DatabaseHelper.GetAllApplications();
+    }
+    private void EditApplication(Applications application)
+    {
+        editModal.Show(application);
+    }
+    private void DeleteApplication(Applications application)
+    {
+        DatabaseHelper.DeleteApplication(application.ID);
         applications = DatabaseHelper.GetAllApplications();
     }
 }
