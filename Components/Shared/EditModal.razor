@@ -1,5 +1,5 @@
 @page "/updateapplicationmodal"
-
+@using System.Diagnostics
 @using ApplicationsHelper
 @inject DatabaseHelper DatabaseHelper
 
@@ -50,11 +50,9 @@
               </div>
               <div class="d-flex justify-content-end">
                   <button class="btn btn-primary me-1" type="submit">Submit</button>
+                    <button type="button" class="btn btn-secondary" @onclick="Hide">Close</button>
               </div>
           </EditForm>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @onclick="Hide">Close</button>
         </div>
       </div>
     </div>
@@ -63,23 +61,23 @@
 
 
 @code {
+    [Parameter]
+    public Action? OnModalClosed { get; set; }
     private Applications updatedApplication = new Applications();
+    private bool isVisible;
     private void HandleValidSubmit()
     {
         DatabaseHelper.UpdateApplication(updatedApplication);
     }
-
-    private bool isVisible;
     public void Show(Applications application)
     {
         this.updatedApplication = application;
         isVisible = true;
         StateHasChanged();
     }
-
     private void Hide()
     {
         isVisible = false;
-        StateHasChanged();
+        OnModalClosed?.Invoke();
     }
 }
